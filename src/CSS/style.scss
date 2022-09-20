@@ -1,0 +1,291 @@
+* {
+    box-sizing: border-box;
+    // min-height: 100%;
+    max-width: 1440px;
+}
+
+body {
+    margin: auto;
+    font-family: 'Roboto', sans-serif;}
+
+
+$color-primary: #020203;
+$color-secondary: #FFFFFF;
+$color-tertiary: #FBFBFB;
+$color-fourth: #282D30;
+$color-fifth: #FF0000;
+$color-sixth:#74798C;
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Page Display +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.stats {
+    display: flex;
+        float: right;
+        width: 85%;
+    
+        .mainStats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: fit-content;
+            width: 835px;
+            margin-right: 2rem;
+    
+        }
+    
+        .informationCards {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    
+    }
+
+    
+// +++++++++++++++++++++++++++++++++++++++++ Navbar +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.navBar {
+    display: flex;
+    background-color: $color-primary;
+    height: 91px;
+    align-items: center;
+    padding: 2rem;
+    width: 200vh;
+
+    .siteName {
+        margin-right: 4rem;
+
+        img {
+            width: 178px;
+            height: 61px;
+        }
+    }
+
+    .navBarLink {
+        font-size: 24px;
+        color: $color-secondary;
+        text-decoration: none;
+        margin: 4rem;
+
+    }
+
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Welcoming message +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.hello {
+
+    margin-left: 12rem;
+    margin-top: 2rem;
+        
+    h1 {
+        font-size: 48px;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    p {
+        font-size: 18px;
+    }
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Sidebar Footer +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-primary;
+    width: 117px;
+    height: 100vh;
+    align-items: center; 
+    float: left;
+
+    top: 85px;
+    left: -5px;
+    position: absolute;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        padding: inherit;
+        margin-top: 10rem;
+        margin-bottom: 6rem;
+    
+        .navBarLink {
+            margin-bottom: 1rem;
+        }
+
+    }
+
+    p {
+        font-size: 12px;
+        color: $color-secondary;
+        writing-mode: vertical-lr;
+    }
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Information cards +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.information {
+    display: flex;
+    width: 258px;
+    height: 124px;
+    background-color: $color-tertiary;
+    border-radius: 5px;
+    align-items: center;
+    
+    .informationIcon {
+        padding: 1rem;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    .informationData {
+        .informationUnit {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .informationName {
+            font-size: 14px;
+            margin-top: 4px;
+        }
+    }
+
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Activity Barchart +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.barchartContainer {
+    background-color: $color-tertiary;
+    width: 835px;
+    height: 320px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+
+    h2 {
+        font-size: 15px;
+        margin-left: 2rem;
+        margin-top: 2rem;
+    }
+
+}
+
+.customTooltipActivity {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    font-size: 7px;
+}
+
+.legendTextColor {
+    color: $color-sixth;
+  }
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Sessions Graph +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.sessionGraph {
+    width: 258px;
+    height: 263px;
+    border-radius: 5px;
+    position: relative;
+
+
+    .sessionResponsiveContainer {
+        background-color: $color-fifth;
+        border-radius: 5px;
+
+    }
+
+    h2 {
+        position: absolute;
+        font-size: 15px;
+        width: 70%;
+        color: $color-secondary;
+        top: 15px;
+        left: 20px;
+    }
+
+    .tooltipSession {
+        background-color: white;
+        color: black;
+        padding: 1px 10px;
+    }
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ RadarChart +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.radar {
+    width: 258px;
+    height: 263px;
+    background-color: $color-fourth;
+    border-radius: 5px;
+
+}
+
+
+// +++++++++++++++++++++++++++++++++++++++++ Performance Score LineChart +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+.scoreContainer {
+    width: 258px;
+    height: 263px;
+    background-color: $color-tertiary;
+    position: relative;
+
+    h2 {
+        font-size: 15px;
+        margin: 0;
+        position: absolute;
+        top: 25px;
+        left: 30px;
+    }
+
+}
+
+.legendScore {
+    text-align: center;
+
+    &Number {
+        font-weight: 700;
+        font-size: 26px;
+        margin: 10px;
+    }
+
+    &Text {
+        opacity: 0.5;
+        margin: 5px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

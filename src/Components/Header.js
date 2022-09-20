@@ -1,0 +1,26 @@
+import logo from "../images/logo.png";
+import { Link, NavLink } from "react-router-dom";
+
+export default function Header() {
+  return (
+    <nav className="navBar">
+      <Link to="/" className="siteName">
+        <img src={logo} alt="logo" />
+      </Link>
+      <ul>
+        <NavLink to="/" className="navBarLink">
+          Accueil
+        </NavLink>
+        <NavLink to="/" className="navBarLink">
+          Profil
+        </NavLink>
+        <NavLink to="/" className="navBarLink">
+          Réglage
+        </NavLink>
+        <NavLink to="/" className="navBarLink">
+          Communauté
+        </NavLink>
+      </ul>
+    </nav>
+  );
+}

@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  max-width: 1440px;
+}
+
+body {
+  margin: auto;
+  font-family: "Roboto", sans-serif;
+}
+
+.stats {
+  display: flex;
+  float: right;
+  width: 85%;
+}
+.stats .mainStats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  width: 835px;
+  margin-right: 2rem;
+}
+.stats .informationCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navBar {
+  display: flex;
+  background-color: #020203;
+  height: 91px;
+  align-items: center;
+  padding: 2rem;
+  width: 200vh;
+}
+.navBar .siteName {
+  margin-right: 4rem;
+}
+.navBar .siteName img {
+  width: 178px;
+  height: 61px;
+}
+.navBar .navBarLink {
+  font-size: 24px;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin: 4rem;
+}
+
+.hello {
+  margin-left: 12rem;
+  margin-top: 2rem;
+}
+.hello h1 {
+  font-size: 48px;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+.hello p {
+  font-size: 18px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #020203;
+  width: 117px;
+  height: 100vh;
+  align-items: center;
+  float: left;
+  top: 85px;
+  left: -5px;
+  position: absolute;
+}
+footer ul {
+  display: flex;
+  flex-direction: column;
+  padding: inherit;
+  margin-top: 10rem;
+  margin-bottom: 6rem;
+}
+footer ul .navBarLink {
+  margin-bottom: 1rem;
+}
+footer p {
+  font-size: 12px;
+  color: #FFFFFF;
+  -ms-writing-mode: tb-lr;
+      writing-mode: vertical-lr;
+}
+
+.information {
+  display: flex;
+  width: 258px;
+  height: 124px;
+  background-color: #FBFBFB;
+  border-radius: 5px;
+  align-items: center;
+}
+.information .informationIcon {
+  padding: 1rem;
+}
+.information .informationIcon img {
+  width: 60px;
+  height: 60px;
+}
+.information .informationData .informationUnit {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.information .informationData .informationName {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.barchartContainer {
+  background-color: #FBFBFB;
+  width: 835px;
+  height: 320px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.barchartContainer h2 {
+  font-size: 15px;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+
+.customTooltipActivity {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  font-size: 7px;
+}
+
+.legendTextColor {
+  color: #74798C;
+}
+
+.sessionGraph {
+  width: 258px;
+  height: 263px;
+  border-radius: 5px;
+  position: relative;
+}
+.sessionGraph .sessionResponsiveContainer {
+  background-color: #FF0000;
+  border-radius: 5px;
+}
+.sessionGraph h2 {
+  position: absolute;
+  font-size: 15px;
+  width: 70%;
+  color: #FFFFFF;
+  top: 15px;
+  left: 20px;
+}
+.sessionGraph .tooltipSession {
+  background-color: white;
+  color: black;
+  padding: 1px 10px;
+}
+
+.radar {
+  width: 258px;
+  height: 263px;
+  background-color: #282D30;
+  border-radius: 5px;
+}
+
+.scoreContainer {
+  width: 258px;
+  height: 263px;
+  background-color: #FBFBFB;
+  position: relative;
+}
+.scoreContainer h2 {
+  font-size: 15px;
+  margin: 0;
+  position: absolute;
+  top: 25px;
+  left: 30px;
+}
+
+.legendScore {
+  text-align: center;
+}
+.legendScoreNumber {
+  font-weight: 700;
+  font-size: 26px;
+  margin: 10px;
+}
+.legendScoreText {
+  opacity: 0.5;
+  margin: 5px;
+}/*# sourceMappingURL=style.css.map */
