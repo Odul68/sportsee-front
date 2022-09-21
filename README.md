@@ -43,7 +43,7 @@ npm install
 Launch the front-end on port 3001:
 
 ```
-npm run start
+npm start
 ```
 
 Front-end is now rendered at URL http://localhost:3001.
