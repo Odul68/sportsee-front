@@ -21,7 +21,6 @@ export default function Activity() {
   const handleActitivyData = async () => {
     const promise = await fetch("http://localhost:3000/user/12/activity");
     const res = await promise.json();
-    console.log(res.data);
 
     /** Allows the Xaxis of the chart to start from 1 */
     const XAxis = res.data.sessions.map((item, index) => ({

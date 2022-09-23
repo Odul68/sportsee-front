@@ -68,7 +68,7 @@ export default function Home() {
             <Performance />
             <PerformanceScore />
           </div>
-
+          {/* Created a card for each type from the "informations" const */}
           <aside className="informationCards">
             {informations.map((props) => (
               <InformationCards {...props} key={props.type} />
