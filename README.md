@@ -4,14 +4,14 @@ Project number 12 of the Openclassrooms - Development of an analytics dashboard
 
 ## Prequisites
 
-NodeJS (v16.17.0)
-NPM (8.15.0)
-Yarn (1.22.19)
-React (v18.2.0)
-React Router Dom (v6.3.0)
+NodeJS (v16.17.0)  
+NPM (8.15.0)  
+Yarn (1.22.19)  
+React (v18.2.0)  
+React Router Dom (v6.3.0)  
 Recharts (v2.1.13)
 
-Run the following command to install the dependencies
+Run the following command to install the dependencies:
 
 ```
 npm install or yarn install
