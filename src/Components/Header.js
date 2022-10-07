@@ -1,6 +1,12 @@
 import logo from "../images/logo.png";
 import { Link, NavLink } from "react-router-dom";
 
+/**
+ * Header NavBar with logo and links
+ * @component
+ * @returns component
+ */
+
 export default function Header() {
   return (
     <nav className="navBar">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   LineChart,
   Line,
@@ -11,55 +11,59 @@ import {
 
 /**
  * Adds newDay data with the initial of every day of the week
+ * @param {object} day
+ * @returns string ou null
  */
-const formatData = (data) => {
-  const object = {
-    1: "L",
-    2: "M",
-    3: "M",
-    4: "J",
-    5: "V",
-    6: "S",
-    7: "D",
-  };
 
-  const res = data.map((item) => ({ ...item, newDay: object[item.day] }));
-  return res;
+const formatNameDay = (day) => {
+  switch (day) {
+    case 1:
+      return "L";
+    case 2:
+      return "M";
+    case 3:
+      return "M";
+    case 4:
+      return "J";
+    case 5:
+      return "V";
+    case 6:
+      return "S";
+    case 7:
+      return "D";
+
+    default:
+      return null;
+  }
 };
 
 /**
- * LineChart showing the average duration of each
- * session per day and its progress in a week
+ * Tooltip showing the amount of time spend when active
+ * @param {boolean} active or not
+ * @param {array} payload
+ * @returns Active tooltip or null
  */
 
-export default function SessionsDuration() {
-  const [session, setSession] = useState(null);
-
-  const handleSessionData = async () => {
-    const promise = await fetch(
-      "http://localhost:3000/user/18/average-sessions"
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="tooltipSession">
+        <p className="tooltipSessionText">{`${payload[0].value} min`}</p>
+      </div>
     );
-    const res = await promise.json();
-    const formatedData = formatData(res.data.sessions);
-    setSession({ ...res.data.sessions, sessions: formatedData });
-  };
+  }
 
-  useEffect(() => {
-    handleSessionData();
-  }, []);
+  return null;
+};
 
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="tooltipSession">
-          <p className="tooltipSessionText">{`${payload[0].value} min`}</p>
-        </div>
-      );
-    }
+/**
+ * LineChart showing the average duration of each session per day and its progress in a week
+ * @component
+ * @param {Array} userSessions - array giivng data about the time for each day
+ * @returns component Recharts LineChart
+ */
 
-    return null;
-  };
-
+export default function SessionsDuration({ userSessions }) {
   return (
     <div className="sessionGraph">
       <h2>Durée moyenne des sessions</h2>
@@ -71,7 +75,7 @@ export default function SessionsDuration() {
         <LineChart
           width="50%"
           height="50%"
-          data={session?.sessions}
+          data={userSessions}
           margin={{
             top: 5,
             right: 30,
@@ -96,7 +100,8 @@ export default function SessionsDuration() {
           }}
         >
           <XAxis
-            dataKey="newDay"
+            dataKey="day"
+            tickFormatter={formatNameDay}
             stroke="#FFFFFF"
             opacity={0.5}
             tickLine={false}
@@ -128,3 +133,7 @@ export default function SessionsDuration() {
     </div>
   );
 }
+
+SessionsDuration.propTypes = {
+  userSessions: PropTypes.array.isRequired,
+};

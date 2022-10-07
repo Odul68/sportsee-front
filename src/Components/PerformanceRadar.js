@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Radar,
   RadarChart,
@@ -7,52 +7,48 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-/** Adding newKind data with the necessary name for each */
-const formatData = (data) => {
-  const object = {
-    1: "Intensité",
-    2: "Vitesse",
-    3: "Force",
-    4: "Endurance",
-    5: "Energie",
-    6: "Cardio",
-  };
-
-  const res = data.map((item) => ({ ...item, newKind: object[item.kind] }));
-  return res;
+/**
+ * Adding newKind data with the necessary name for each
+ * @param {object} kind
+ * @returns string with the new kind or null
+ *
+ */
+const formatDataName = (kind) => {
+  switch (kind) {
+    case 1:
+      return "Cardio";
+    case 2:
+      return "Énergie";
+    case 3:
+      return "Endurance";
+    case 4:
+      return "Force";
+    case 5:
+      return "Vitesse";
+    case 6:
+      return "Intensité";
+    default:
+      return null;
+  }
 };
 
 /**
- * Creating a RadarChart showing progress
- * depending on category
+ * Creating a RadarChart showing progress depending on category
+ * @component
+ * @param {aray} userPerformance - array with datas from the performance part
+ * @returns component Recharts RadarChart with 6 kinds
  */
 
-export default function Performance() {
-  const [performance, setPerformance] = useState(null);
-
-  const handlePerformanceData = async () => {
-    const promise = await fetch("http://localhost:3000/user/18/performance");
-    const res = await promise.json();
-    const formatedData = formatData(res.data.data);
-    setPerformance({ ...res.data, data: formatedData });
-  };
-
-  useEffect(() => {
-    handlePerformanceData();
-  }, []);
-
-  if (!performance) {
-    return <div>loading...</div>;
-  }
-
+export default function Performance({ userPerformance }) {
   return (
     <div className="radar">
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart outerRadius={75} data={performance?.data}>
+        <RadarChart outerRadius={52} data={userPerformance}>
           <PolarGrid />
           <PolarAngleAxis
             className="radarAttribute"
-            dataKey="newKind"
+            dataKey="kind"
+            tickFormatter={formatDataName}
             stroke="#FFFFFF"
             fontSize={14}
             tickLine={false}
@@ -69,3 +65,7 @@ export default function Performance() {
     </div>
   );
 }
+
+Performance.propTypes = {
+  userPerformance: PropTypes.array.isRequired,
+};

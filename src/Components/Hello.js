@@ -1,3 +1,10 @@
+import PropTypes from "prop-types";
+
+/**
+ * Welcome message
+ * @param {string} props - User name
+ * @returns component with personalized welcoming message
+ */
 export default function Hello(props) {
   const name = props.name;
 
@@ -12,3 +19,7 @@ export default function Hello(props) {
     </section>
   );
 }
+
+Hello.propTypes = {
+  props: PropTypes.string,
+};

@@ -4,6 +4,12 @@ import swimming from "../images/swimming.png";
 import yoga from "../images/yoga.png";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Vertical Footer
+ * @component
+ * @returns component with links to each page
+ */
+
 export default function Footer() {
   return (
     <footer>

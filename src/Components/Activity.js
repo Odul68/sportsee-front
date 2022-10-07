@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   BarChart,
   CartesianGrid,
@@ -11,45 +11,37 @@ import {
 } from "recharts";
 
 /**
- * Barchart showing the daily evolution of the burnt calories
- * and the evolution of the weight
+ * Tooltip showing the information from the datas "kg" and "kCal"
+ * @param {boolean} active or not
+ * @param {array}   payload
+ * @returns Active tooltip or null
  */
 
-export default function Activity() {
-  const [activity, setActivity] = useState([]);
+const CustomTooltipActivity = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="customTooltipActivity">
+        <p> {`${payload[0].value}kg`}</p>
+        <p> {`${payload[1].value}kCal`}</p>
+      </div>
+    );
+  }
+  return null;
+};
 
-  const handleActitivyData = async () => {
-    const promise = await fetch("http://localhost:3000/user/12/activity");
-    const res = await promise.json();
+/**
+ * Barchart showing the daily evolution of the burnt calories
+ * and the evolution of the weight
+ * @component
+ * @param {array} userActivity - array of data with information about each session
+ * @returns Recharts BarChart with the evolution for each session
+ */
 
-    /** Allows the Xaxis of the chart to start from 1 */
-    const XAxis = res.data.sessions.map((item, index) => ({
-      ...item,
-      xaxis: index + 1,
-    }));
-    setActivity({ ...res.data, sessions: XAxis });
-  };
-
-  useEffect(() => {
-    handleActitivyData();
-  }, []);
-
-  const CustomTooltipActivity = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="customTooltipActivity">
-          <p> {`${payload[0].value}kg`}</p>
-          <p> {`${payload[1].value}kCal`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
-
+export default function Activity({ userActivity }) {
   return (
     <div className="barchartContainer">
       <h2>Activité quotidienne</h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="80%">
         <BarChart
           margin={{ top: 10, right: 48, bottom: 32, left: 48 }}
           barGap={8}
@@ -57,7 +49,7 @@ export default function Activity() {
           className="barchart"
           width="50%"
           height="20%"
-          data={activity?.sessions}
+          data={userActivity}
         >
           <CartesianGrid strokeDasharray="1 1" vertical={false} />
           <XAxis
@@ -113,3 +105,7 @@ export default function Activity() {
     </div>
   );
 }
+
+Activity.propTypes = {
+  userActivity: PropTypes.array.isRequired,
+};

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   RadialBarChart,
   RadialBar,
@@ -7,43 +7,38 @@ import {
 } from "recharts";
 
 /**
- * RadialBarchart showing the score in %
- * of the part already achieved of the goal
+ * Legind showing the score in number with a text
+ * @param {array} payload - datas
+ * @returns Legent with the data in percentage
  */
 
-export default function PerformanceScore() {
-  const [score, setScore] = useState([]);
+function CustomLegendScore(payload) {
+  return (
+    <div className="legendScore">
+      <p className="legendScoreNumber">
+        {payload?.payload[1]?.payload.newTodayScore}%
+      </p>
+      <p className="legendScoreText">de votre</p>
+      <p className="legendScoreText">objectif</p>
+    </div>
+  );
+}
 
-  const handleScoreData = async () => {
-    const promise = await fetch("http://localhost:3000/user/18");
-    const res = await promise.json();
+/**
+ * RadialBarchart showing the score in % of the part already achieved of the goal
+ * @component
+ * @param {number} userMain - datas from the main user info in "score"
+ * @returns component Recharts RadialBarChart
+ */
 
-    setScore(res.data);
-  };
-
-  useEffect(() => {
-    handleScoreData();
-  }, []);
-
-  function CustomLegendScore(payload) {
-    return (
-      <div className="legendScore">
-        <p className="legendScoreNumber">
-          {payload?.payload[1]?.payload.newTodayScore}%
-        </p>
-        <p className="legendScoreText">de votre</p>
-        <p className="legendScoreText">objectif</p>
-      </div>
-    );
-  }
-
+export default function PerformanceScore({ userMain }) {
   let newData = [
     {
       newTodayScore: 100,
       fill: "#FFFFFF",
     },
     {
-      newTodayScore: score?.score * 100,
+      newTodayScore: userMain * 100,
       fill: "#E60000",
     },
   ];
@@ -58,8 +53,8 @@ export default function PerformanceScore() {
           barSize={10}
           cx="50%"
           cy="50%"
-          innerRadius={80}
-          outerRadius={80}
+          innerRadius={window.innerWidth > 1340 ? "75%" : "55%"}
+          outerRadius={window.innerWidth > 1340 ? "75%" : "55%"}
           data={newData}
         >
           <RadialBar cornerRadius="100%" dataKey="newTodayScore" />
@@ -69,3 +64,7 @@ export default function PerformanceScore() {
     </div>
   );
 }
+
+PerformanceScore.propTypes = {
+  userMain: PropTypes.number.isRequired,
+};

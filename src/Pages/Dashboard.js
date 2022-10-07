@@ -12,44 +12,78 @@ import CarbsIcon from "../icons/carbs.png";
 import ProteinIcon from "../icons/protein.png";
 import FatIcon from "../icons/fat.png";
 
-export default function Home() {
-  const [user, setUser] = useState(null);
+import getData from "../API/Api";
+import { useParams, useNavigate } from "react-router-dom";
 
-  const handleData = async () => {
-    const promise = await fetch("http://localhost:3000/user/18");
-    const res = await promise.json();
+/**
+ * Function getting datas from getData and applying it to each component
+ * @param {number} id - user ID
+ * @param {string} categorie - Data category for each component
+ * @returns promise
+ * @returns Dashboard page with all components and the right data depending on the user
+ */
 
-    setUser(res.data);
-  };
+export default function Dashboard() {
+  const { id } = useParams();
+  const { categorie } = useParams();
+  const navigate = useNavigate();
+  const [userMain, setUserMain] = useState();
+  const [userActivity, setUserActivity] = useState();
+  const [userSessions, setUserSessions] = useState();
+  const [userPerformance, setUserPerformance] = useState();
 
   useEffect(() => {
-    // Launch handleData function once at the start when the array is empty and fills it with all the information
-    handleData();
-  }, []);
+    getData(id, categorie).then((data) => {
+      if (typeof data !== "undefined") {
+        setUserMain(data);
+
+        getData(id, "activity").then((data) => {
+          // /** Allows the Xaxis of the chart to start from 1 */
+          const sessions = data.sessions.map((item, index) => ({
+            ...item,
+            xaxis: index + 1,
+          }));
+          setUserActivity({ ...data, sessions });
+        });
+
+        getData(id, "average-sessions").then((data) => setUserSessions(data));
+
+        getData(id, "performance").then((data) => setUserPerformance(data));
+      } else {
+        navigate("/Error");
+      }
+    });
+  }, [id, categorie, navigate]);
+
+  if (!userMain || !userActivity || !userSessions || !userPerformance) {
+    return null;
+  }
 
   /**
    * Data for the Information Cards
+   * @type {array} informations needed for all four cards
+   * @returns array
    */
 
   const informations = [
     {
       icon: CaloriesIcon,
-      quantity: user?.keyData?.calorieCount,
+      quantity: userMain?.calorie,
       type: "Calories",
     },
     {
       icon: ProteinIcon,
-      quantity: user?.keyData?.proteinCount,
+      quantity: userMain?.proteine,
       type: "Protéines",
     },
     {
       icon: CarbsIcon,
-      quantity: user?.keyData?.carbohydrateCount,
+      quantity: userMain?.glucide,
       type: "Glucides",
     },
     {
       icon: FatIcon,
-      quantity: user?.keyData?.lipidCount,
+      quantity: userMain?.lipide,
       type: "Lipides",
     },
   ];
@@ -60,13 +94,13 @@ export default function Home() {
       <section className="personalInfo">
         <Footer />
 
-        <Hello name={user?.userInfos?.firstName} />
+        <Hello name={userMain?.firstName} />
         <section className="stats">
           <div className="mainStats">
-            <Activity />
-            <SessionsDuration />
-            <Performance />
-            <PerformanceScore />
+            <Activity userActivity={userActivity?.sessions} />
+            <SessionsDuration userSessions={userSessions?.sessions} />
+            <Performance userPerformance={userPerformance?.data} />
+            <PerformanceScore userMain={userMain?.score} />
           </div>
           {/* Created a card for each type from the "informations" const */}
           <aside className="informationCards">
