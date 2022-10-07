@@ -62,7 +62,3 @@ npm start
 ```
 
 Front-end is now rendered at URL http://localhost:3001.
-
-```
-
-```
